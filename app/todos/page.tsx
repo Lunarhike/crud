@@ -6,7 +6,7 @@ export default function TodosPage() {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (newTodo) => {
+    mutationFn: (newTodo: { task: string }) => {
       return fetch("/api/todos", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
