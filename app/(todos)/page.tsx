@@ -1,10 +1,15 @@
 import { Todos } from "@/components/todos";
 import { TodoForm } from "@/components/add-todo";
+import { Suspense } from "react";
 export default async function TodosPage() {
   return (
     <>
-      <TodoForm />
-      <Todos />
+      <Suspense fallback={<div>loading...</div>}>
+        <TodoForm />
+      </Suspense>
+      <Suspense fallback={<div>loading...</div>}>
+        <Todos />
+      </Suspense>
     </>
   );
 }
