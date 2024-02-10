@@ -6,7 +6,7 @@ if (!process.env.POSTGRES_URL) {
 
 export default {
   schema: "./server/db/index.ts",
-  out: "./drizzle",
+  out: "./server/db/migrations",
   driver: "pg",
   dbCredentials: {
     connectionString: process.env.POSTGRES_URL,

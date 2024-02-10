@@ -2,27 +2,27 @@
 
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { createTodoAction, type TodoActionData } from "../lib/actions";
+import { State, createTodo } from "@/lib/actions/todos";
 import { Loader2 } from "lucide-react";
 import { useFormStatus, useFormState } from "react-dom";
 
 export function TodoForm() {
-  const [state, formAction] = useFormState(createTodoAction, {});
+  const initialState = { message: null, errors: {} };
+  const [state, dispatch] = useFormState(createTodo, initialState);
+  const { pending } = useFormStatus();
 
   return (
-    <form action={formAction}>
-      <TodoFormFields {...state} />
+    <form action={dispatch}>
+      <ReplyFormFields {...state} />
     </form>
   );
 }
 
-function TodoFormFields({ error }: TodoActionData) {
+function ReplyFormFields({ errors, message }: State) {
   const { pending } = useFormStatus();
 
   return (
     <div className="flex flex-col gap-2">
-      <input type="hidden" name="todoId" />
-
       <div className="flex flex-col gap-1">
         <Textarea
           name="task"
@@ -39,22 +39,19 @@ function TodoFormFields({ error }: TodoActionData) {
             }
           }}
         />
-        {!pending &&
-        error &&
-        "fieldErrors" in error &&
-        error.fieldErrors.task != null ? (
-          <div className="text-red-500 text-sm">{error.fieldErrors.task}</div>
-        ) : null}
+        {errors?.task &&
+          errors.task.map((error: string) => (
+            <p className="mt-2 text-sm text-red-500" key={error}>
+              {error}
+            </p>
+          ))}
       </div>
 
       <div className="flex gap-2 items-center">
-        <Button disabled={pending} className="p-0 h-8 px-4">
+        <Button type="submit" disabled={pending} className="p-0 h-8 px-4">
           {pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
           Submit
         </Button>
-        {error && "message" in error && (
-          <span className="text-red-500 text-sm">{error.message}</span>
-        )}
       </div>
     </div>
   );

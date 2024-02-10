@@ -1,5 +1,5 @@
-import { Todos } from "@/components/todos";
-import { TodoForm } from "@/components/add-todo";
+import { Todos } from "@/components/todos/TodoList";
+import { TodoForm } from "@/components/todos/CreateTodo";
 import { Suspense } from "react";
 export default async function TodosPage() {
   return (
