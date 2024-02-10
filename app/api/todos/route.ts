@@ -1,5 +1,5 @@
 import { db, todosTable } from "@/server/db"; // Import your database setup
-import { desc } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 
 export async function GET() {
   const todos = await db
@@ -33,4 +33,17 @@ export async function POST(request: Request) {
     });
 
   return Response.json(newTodo[0]);
+}
+
+export async function DELETE(request: Request) {
+  const body = await request.json();
+  const { id } = body;
+
+  if (!id) {
+    return new Response("Missing todo task", { status: 400 });
+  }
+
+  const newTodo = await db.delete(todosTable).where(eq(todosTable.id, id));
+
+  return Response.json(newTodo);
 }

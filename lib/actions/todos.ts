@@ -3,6 +3,7 @@
 import z from "zod";
 import { db, todosTable } from "@/server/db";
 import { revalidatePath } from "next/cache";
+import { eq } from "drizzle-orm";
 
 const TodoFormSchema = z.object({
   task: z.string().min(1, { message: "Task is required" }),
@@ -43,5 +44,15 @@ export async function createTodo(
     return {
       message: "Database Error: Failed to Create Todo.",
     };
+  }
+}
+
+export async function deleteTodo(id: string): Promise<State> {
+  try {
+    await db.delete(todosTable).where(eq(todosTable.id, id as any));
+    revalidatePath(`/`);
+    return { message: "Deleted Todo" };
+  } catch (error) {
+    return { message: "Database Error: Failed to Delete Todo." };
   }
 }

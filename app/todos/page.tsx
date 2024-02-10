@@ -5,12 +5,23 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 export default function TodosPage() {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation({
+  const createMutation = useMutation({
     mutationFn: (newTodo: { task: string }) => {
       return fetch("/api/todos", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newTodo),
+      });
+    },
+    onSettled: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (id: any) => {
+      return fetch("/api/todos", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id }),
       });
     },
     onSettled: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
@@ -27,17 +38,17 @@ export default function TodosPage() {
 
   return (
     <>
-      {mutation.isPending ? (
+      {createMutation.isPending ? (
         "Adding todo..."
       ) : (
         <>
-          {mutation.isError ? (
-            <div>An error occurred: {mutation.error.message}</div>
+          {createMutation.isError ? (
+            <div>An error occurred: {createMutation.error.message}</div>
           ) : null}
 
           <button
             onClick={() => {
-              mutation.mutate({ task: "Test" });
+              createMutation.mutate({ task: "Test" });
             }}
           >
             Create Todo
@@ -45,7 +56,10 @@ export default function TodosPage() {
         </>
       )}
       {data.map((todo: any) => (
-        <div key={todo.id}>{todo.task}</div>
+        <div key={todo.id}>
+          <div>{todo.task}</div>
+          <button onClick={() => deleteMutation.mutate(todo.id)}>Delete</button>
+        </div>
       ))}
     </>
   );
