@@ -26,7 +26,7 @@ export async function Todos() {
             <>
               <li key={todo.id} className="flex gap-2">
                 <div>{todo.task}</div>
-                <DeleteTodo id={todo.id} />
+                <DeleteTodo id={todo.id as any} />
               </li>
             </>
           );
