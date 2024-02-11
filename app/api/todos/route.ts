@@ -47,3 +47,24 @@ export async function DELETE(request: Request) {
 
   return Response.json(newTodo);
 }
+
+export async function PUT(request: Request) {
+  const body = await request.json();
+  const { id, task, completed } = body;
+
+  if (!id || !task) {
+    return new Response("Missing todo id or task", { status: 400 });
+  }
+
+  const updatedTodo = await db
+    .update(todosTable)
+    .set({ task, completed })
+    .where(eq(todosTable.id, id))
+    .returning({
+      id: todosTable.id,
+      task: todosTable.task,
+      completed: todosTable.completed,
+    });
+
+  return Response.json(updatedTodo[0]);
+}

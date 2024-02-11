@@ -31,6 +31,23 @@ export async function deleteTodo(id: any) {
   }
 }
 
+export async function updateTodo(currentState: any, formData: FormData) {
+  const todoId = currentState.todoId as string;
+
+  const task = formData.get("task" as string);
+
+  try {
+    await db
+      .update(todosTable)
+      .set({ task: task as string })
+      .where(eq(todosTable.id, todoId as any));
+    revalidatePath(`/`);
+    return { success: true, error: null, todoId };
+  } catch (error: any) {
+    return { success: false, error: error.toString(), todoId };
+  }
+}
+
 // import z from "zod";
 // import { db, todosTable } from "@/server/db";
 // import { revalidatePath } from "next/cache";

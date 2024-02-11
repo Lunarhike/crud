@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Provider from "@/lib/providers";
 import "@/styles/globals.css";
-import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,10 +18,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="border-b flex space-x-4">
-          <Link href="/">Todos A</Link>
-          <Link href="/todos">Todos B</Link>
-        </div>
         <Provider>{children}</Provider>
       </body>
     </html>

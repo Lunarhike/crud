@@ -38,7 +38,7 @@ const CreateTodo = () => {
         )}
 
         <div className="flex gap-3 mt-6">
-          <SubmitButton />
+          <SubmitButton>Add Todo</SubmitButton>
         </div>
       </form>
     </>
