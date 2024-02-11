@@ -1,15 +1,12 @@
-import { Todos } from "@/components/todos/TodoList";
-import { TodoForm } from "@/components/todos/CreateTodo";
-import { Suspense } from "react";
+import { getTodos } from "@/lib/data";
+import TodoList from "@/modules/todos/components/todo-list";
+
 export default async function TodosPage() {
+  const todos = await getTodos();
+
   return (
-    <>
-      <Suspense fallback={<div>loading...</div>}>
-        <TodoForm />
-      </Suspense>
-      <Suspense fallback={<div>loading...</div>}>
-        <Todos />
-      </Suspense>
-    </>
+    <div>
+      <TodoList todos={todos} />
+    </div>
   );
 }
