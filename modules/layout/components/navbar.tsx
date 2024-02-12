@@ -10,6 +10,7 @@ export default async function Nav() {
               <Link href="/">T0D0S</Link>
               <Link href="/">Todos A</Link>
               <Link href="/todos">Todos B</Link>
+              <Link href="/todoslee">Todos Lee Implementation</Link>
             </div>
           </div>
 
