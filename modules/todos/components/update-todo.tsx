@@ -25,18 +25,18 @@ const UpdateTodo: React.FC<UpdateTodoProps> = ({ todo }) => {
     todoId: todo.id,
   });
 
-  useEffect(() => {
-    if (successState) {
-      setIsEditing(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [successState]);
+  // useEffect(() => {
+  //   if (successState) {
+  //     setIsEditing(false);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [successState]);
 
-  useEffect(() => {
-    if (formState.success) {
-      setSuccessState(true);
-    }
-  }, [formState]);
+  // useEffect(() => {
+  //   if (formState.success) {
+  //     setSuccessState(true);
+  //   }
+  // }, [formState]);
 
   const removeTodo = async () => {
     setRemoving(true);
@@ -48,7 +48,7 @@ const UpdateTodo: React.FC<UpdateTodoProps> = ({ todo }) => {
   return (
     <div>
       <div className="flex items-center gap-x-4">
-        {isEditing ? (
+        {/* {isEditing ? (
           <form action={formAction}>
             <Input
               name="task"
@@ -60,22 +60,23 @@ const UpdateTodo: React.FC<UpdateTodoProps> = ({ todo }) => {
             <SubmitButton>Update</SubmitButton>
           </form>
         ) : (
-          <>
-            <div>{todo.task}</div>
-            <button
+          <> */}
+        <div>{todo.task}</div>
+        {/* <button
               className="text-small-regular text-blue-500"
               onClick={() => setIsEditing(true)}
             >
               Edit
-            </button>
-          </>
-        )}
-        <button
+            </button> */}
+        {/* </>
+        )} */}
+        <Button
           className="text-small-regular text-ui-fg-base flex items-center gap-x-2"
           onClick={removeTodo}
+          variant="outline"
         >
-          {removing ? <Loader2 /> : <Trash />}
-        </button>
+          {removing ? <Loader2 className="animate-spin" /> : <Trash />}
+        </Button>
       </div>
     </div>
   );

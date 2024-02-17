@@ -8,7 +8,7 @@ export function SubmitButton({ children }: { children: any }) {
   const { pending } = useFormStatus();
 
   return (
-    <Button isLoading={pending} type="submit" variant="outline">
+    <Button isLoading={pending} className="" type="submit" variant="default">
       {children}
     </Button>
   );

@@ -12,7 +12,7 @@ export async function createTodo(
 
   try {
     await db.insert(todosTable).values({
-      task: task as string,
+      task: "test" as string,
     });
     revalidatePath(`/`);
     return { success: true, error: null };

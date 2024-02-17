@@ -22,7 +22,7 @@ const CreateTodo = () => {
   return (
     <>
       <form action={formAction}>
-        <div className="flex flex-col gap-y-2">
+        {/* <div className="flex flex-col gap-y-2">
           <Input
             placeholder="Add new todo"
             name="task"
@@ -35,10 +35,10 @@ const CreateTodo = () => {
           <div className="text-rose-500 text-small-regular py-2">
             {formState.error}
           </div>
-        )}
+        )} */}
 
         <div className="flex gap-3 mt-6">
-          <SubmitButton>Add Todo</SubmitButton>
+          <SubmitButton>Add Test Todo</SubmitButton>
         </div>
       </form>
     </>
