@@ -1,15 +1,15 @@
-import { db, todosTable } from "@/server/db"; // Import your database setup
+import { db, todos2Table, todosTable } from "@/server/db"; // Import your database setup
 import { desc, eq } from "drizzle-orm";
 
 export async function GET() {
   const todos = await db
     .select({
-      id: todosTable.id,
-      task: todosTable.task,
-      completed: todosTable.completed,
+      id: todos2Table.id,
+      task: todos2Table.task,
+      completed: todos2Table.completed,
     })
-    .from(todosTable)
-    .orderBy(desc(todosTable.created_at));
+    .from(todos2Table)
+    .orderBy(desc(todos2Table.created_at));
 
   return Response.json(todos);
 }
@@ -17,19 +17,18 @@ export async function GET() {
 export async function POST(request: Request) {
   const body = await request.json();
   const { task } = body;
-  console.log(task);
 
   if (!task) {
     return new Response("Missing todo task", { status: 400 });
   }
 
   const newTodo = await db
-    .insert(todosTable)
+    .insert(todos2Table)
     .values({ task, completed: false })
     .returning({
-      id: todosTable.id,
-      task: todosTable.task,
-      completed: todosTable.completed,
+      id: todos2Table.id,
+      task: todos2Table.task,
+      completed: todos2Table.completed,
     });
 
   return Response.json(newTodo[0]);
@@ -43,7 +42,7 @@ export async function DELETE(request: Request) {
     return new Response("Missing todo task", { status: 400 });
   }
 
-  const newTodo = await db.delete(todosTable).where(eq(todosTable.id, id));
+  const newTodo = await db.delete(todos2Table).where(eq(todos2Table.id, id));
 
   return Response.json(newTodo);
 }

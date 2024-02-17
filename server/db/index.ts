@@ -10,3 +10,10 @@ export const todosTable = pgTable("todos", {
   completed: boolean("completed").notNull().default(false),
   created_at: timestamp("created_at").notNull().defaultNow(),
 });
+
+export const todos2Table = pgTable("todos2", {
+  id: serial("id").primaryKey(),
+  task: text("task").notNull(),
+  completed: boolean("completed").notNull().default(false),
+  created_at: timestamp("created_at").notNull().defaultNow(),
+});
