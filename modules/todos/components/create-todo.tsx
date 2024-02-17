@@ -8,16 +8,7 @@ import { SubmitButton } from "@/modules/todos/components/submit-button";
 
 const CreateTodo = () => {
   const [successState, setSuccessState] = useState(false);
-  const [formState, formAction] = useFormState(createTodo, {
-    success: false,
-    error: null,
-  });
-
-  useEffect(() => {
-    if (formState.success) {
-      setSuccessState(true);
-    }
-  }, [formState]);
+  const [formState, formAction] = useFormState(createTodo, {});
 
   return (
     <>

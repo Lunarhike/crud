@@ -8,16 +8,14 @@ export async function createTodo(
   _currentState: Record<string, unknown>,
   formData: FormData
 ) {
-  const task = formData.get("task" as string);
-
   try {
     await db.insert(todosTable).values({
       task: "test" as string,
     });
     revalidatePath(`/`);
-    return { success: true, error: null };
+    return {};
   } catch (error: any) {
-    return { success: false, error: error.toString() };
+    return {};
   }
 }
 
@@ -25,9 +23,9 @@ export async function deleteTodo(id: any) {
   try {
     await db.delete(todosTable).where(eq(todosTable.id, id));
     revalidatePath(`/`);
-    return { success: true, error: null };
+    return {};
   } catch (error: any) {
-    return { success: false, error: error.toString() };
+    return {};
   }
 }
 
