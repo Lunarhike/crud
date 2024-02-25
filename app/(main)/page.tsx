@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import TodoList from "@/modules/todos/components/todo-list";
 import { Suspense } from "react";
 
