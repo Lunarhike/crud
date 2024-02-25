@@ -3,8 +3,11 @@ import { Suspense } from "react";
 
 export default async function Home() {
   return (
-    <Suspense fallback="loading....">
-      <TodoList />
-    </Suspense>
+    <div>
+      <div>Suspense Test</div>
+      <Suspense fallback="loading....">
+        <TodoList />
+      </Suspense>
+    </div>
   );
 }
