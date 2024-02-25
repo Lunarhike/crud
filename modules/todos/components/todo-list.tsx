@@ -1,8 +1,11 @@
 import React from "react";
 import CreateTodo from "@/modules/todos/components/create-todo";
 import UpdateTodo from "@/modules/todos/components/update-todo";
+import { getTodos } from "@/lib/data";
 
-const TodoList: React.FC<any> = ({ todos }) => {
+const TodoList: React.FC<any> = async () => {
+  const todos = await getTodos();
+
   return (
     <div className="flex flex-col items-center space-y-2">
       <CreateTodo />

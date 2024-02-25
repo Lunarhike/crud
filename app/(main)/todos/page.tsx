@@ -148,7 +148,7 @@ export default function TodosPage() {
         </Button>
       </>
 
-      {data.map((todo: any) => (
+      {data?.map((todo: any) => (
         <div key={todo.id}>
           <TodoItem todo={todo} />
         </div>
